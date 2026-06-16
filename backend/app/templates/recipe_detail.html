@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block content %}
+<article class="detail-layout">
+    <section class="board detail-main">
+        <div class="card-topline">
+            <span class="pill coral">{{ recipe.effective_difficulty }}</span>
+            <span class="pill amber">⭐ {{ '%.1f'|format(recipe.avg_rating) }} / 5</span>
+            <span class="pill mint">{{ recipe.review_count }} reviews</span>
+        </div>
+        <h1>{{ recipe.title }}</h1>
+        <p class="intro">{{ recipe.description }}</p>
+        <p class="meta">Door {{ recipe.author.display_name }} · Deelbaar via <code>/r/{{ recipe.slug }}-{{ recipe.share_token }}</code></p>
+
+        <div class="board inset-board">
+            <h3>Ingrediënten</h3>
+            <ul class="ingredient-list">
+                {% for row in recipe.recipe_ingredients|sort(attribute='step_order') %}
+                <li><strong>{{ row.quantity }}</strong> {{ row.ingredient.name }}{% if row.note %} — {{ row.note }}{% endif %}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="board inset-board">
+            <h3>Bereiding</h3>
+            <pre class="instructions">{{ recipe.instructions }}</pre>
+            {% if recipe.glassware %}<p><strong>Glaswerk:</strong> {{ recipe.glassware }}</p>{% endif %}
+            {% if recipe.garnish %}<p><strong>Garnish:</strong> {{ recipe.garnish }}</p>{% endif %}
+        </div>
+    </section>
+
+    <aside class="detail-side">
+        <section class="board">
+            <h3>Community smaakradar</h3>
+            <div class="flavor-bars">
+                {% for flavor, pct in flavor_stats.breakdown.items()|sort(attribute=1, reverse=True) %}
+                <div>
+                    <div class="flavor-row"><span>{{ flavor }}</span><strong>{{ pct }}%</strong></div>
+                    <div class="bar"><span style="width: {{ pct }}%"></span></div>
+                </div>
+                {% endfor %}
+            </div>
+            <p class="helper">Logica: de smaaktags van de submitter tellen als 2 stemmen, community-votes als 1. Dominante smaken worden zichtbaar vanaf 18% aandeel.</p>
+        </section>
+
+        <section class="board">
+            <form method="post" action="/recipes/{{ recipe.id }}/favorite">
+                <button type="submit" class="btn {% if is_favorited %}btn-dark{% else %}btn-mint{% endif %}">{% if is_favorited %}Uit favorieten{% else %}Bewaar in favorieten{% endif %}</button>
+            </form>
+            <hr />
+            <form method="post" action="/recipes/{{ recipe.id }}/flavor-vote" class="stack-form compact">
+                <label>Stem op het smaakprofiel</label>
+                <div class="checkbox-grid compact">
+                    {% for flavor in flavors %}
+                    <label class="chip-check"><input type="checkbox" name="flavors" value="{{ flavor }}"> {{ flavor }}</label>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn btn-amber">Smaakstem indienen</button>
+            </form>
+            <hr />
+            <form method="post" action="/recipes/{{ recipe.id }}/difficulty-vote" class="stack-form compact">
+                <label>Vind jij deze moeilijkheid juist?</label>
+                <select name="difficulty">
+                    {% for difficulty in difficulties %}
+                    <option value="{{ difficulty }}">{{ difficulty }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-outline">Moeilijkheid stemmen</button>
+            </form>
+        </section>
+    </aside>
+</article>
+
+<section class="board review-panel">
+    <h2>Reviews</h2>
+    <form method="post" action="/recipes/{{ recipe.id }}/reviews" class="stack-form compact">
+        <div class="two-col">
+            <div class="field">
+                <label>Sterrenscore</label>
+                <select name="stars">
+                    {% for i in [5,4,3,2,1] %}
+                    <option value="{{ i }}">{{ i }} sterren</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="field field-grow">
+                <label>Review</label>
+                <input type="text" name="review_text" placeholder="Wat maakt dit recept sterk of minder sterk?" required />
+            </div>
+        </div>
+        <button class="btn btn-coral" type="submit">Plaats review</button>
+    </form>
+
+    <div class="review-list">
+        {% for review in recipe.reviews|sort(attribute='created_at', reverse=True) %}
+        <article class="review-card">
+            <strong>{{ review.user.display_name }}</strong>
+            <span>⭐ {{ review.stars }}</span>
+            <p>{{ review.review_text }}</p>
+        </article>
+        {% else %}
+        <p>Nog geen reviews — wees de eerste smaakjurylid.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

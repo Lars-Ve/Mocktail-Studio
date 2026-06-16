@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="form-wrap board">
+    <p class="eyebrow">Recept indienen</p>
+    <h1>Maak jouw volgende signatuurmocktail</h1>
+    <form method="post" action="/recipes/new" class="stack-form">
+        <div class="two-col">
+            <div class="field">
+                <label>Titel</label>
+                <input type="text" name="title" required placeholder="Sunset Citrus Smash" />
+            </div>
+            <div class="field">
+                <label>Glaswerk</label>
+                <input type="text" name="glassware" placeholder="Highball, coupe..." />
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Korte beschrijving</label>
+            <textarea name="description" rows="3" required placeholder="Beschrijf de vibe, aroma's en het moment waarop dit drankje het best past."></textarea>
+        </div>
+
+        <div class="two-col">
+            <div class="field">
+                <label>Garnish</label>
+                <input type="text" name="garnish" placeholder="Munt, sinaasappelzeste..." />
+            </div>
+            <div class="field">
+                <label>Moeilijkheid</label>
+                <select name="submitted_difficulty" required>
+                    {% for item in difficulties %}
+                    <option value="{{ item }}">{{ item }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Bereidingswijze / volgorde</label>
+            <textarea name="instructions" rows="6" required placeholder="1. Voeg ijs toe...&#10;2. Shake 15 seconden...&#10;3. Top af met tonic..."></textarea>
+        </div>
+
+        <div class="field">
+            <label>Smaakprofiel</label>
+            <div class="checkbox-grid">
+                {% for flavor in flavors %}
+                <label class="chip-check"><input type="checkbox" name="flavors" value="{{ flavor }}"> {{ flavor }}</label>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Ingrediëntenlijst</label>
+            <div class="ingredient-builder">
+                {% for ingredient in ingredients %}
+                <div class="ingredient-row">
+                    <label class="ingredient-title">{{ ingredient.icon or '🧪' }} {{ ingredient.name }} <small>{{ ingredient.category }}</small></label>
+                    <input type="hidden" name="ingredient_ids" value="{{ ingredient.id }}" />
+                    <input type="text" name="quantities" placeholder="bijv. 60 ml" />
+                    <input type="number" name="step_orders" value="{{ loop.index }}" min="1" />
+                    <input type="text" name="notes" placeholder="Optionele noot, vb. geplet" />
+                </div>
+                {% endfor %}
+            </div>
+            <p class="helper">Laat een hoeveelheid leeg om een ingrediënt niet aan het recept toe te voegen.</p>
+        </div>
+
+        <button type="submit" class="btn btn-coral">Publiceer recept</button>
+    </form>
+</section>
+{% endblock %}

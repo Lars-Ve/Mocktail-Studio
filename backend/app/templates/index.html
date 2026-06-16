@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero board">
+    <div>
+        <p class="eyebrow">Zomeravond vibe • frisse community picks</p>
+        <h1>Ontdek, beoordeel en mix de volgende favoriete mocktail.</h1>
+        <p class="intro">Van snelle citrus-spritz tot barista-level showstoppers: zoek op smaak, ingrediënten of kies voor pure keuzestressverlichting.</p>
+        <div class="hero-actions">
+            <a class="btn btn-coral" href="/recipes/new">Maak een nieuw recept</a>
+            <a class="btn btn-mint" href="/shake">Verras mij</a>
+        </div>
+    </div>
+    <div class="stat-grid">
+        <div class="stat-card">
+            <span>Mocktail van de week</span>
+            <strong>{% if featured %}{{ featured.recipe.title }}{% else %}Nog geen winnaar{% endif %}</strong>
+        </div>
+        <div class="stat-card">
+            <span>Discoverability</span>
+            <strong>Nieuwe recepten krijgen ook podium</strong>
+        </div>
+    </div>
+</section>
+
+{% if featured %}
+<section class="section-grid featured-grid">
+    <article class="featured-card">
+        <p class="eyebrow">Mocktail van de week</p>
+        <h2>{{ featured.recipe.title }}</h2>
+        <p>{{ featured.recipe.description }}</p>
+        <div class="pill-row">
+            <span class="pill coral">{{ featured.recipe.effective_difficulty }}</span>
+            <span class="pill amber">⭐ {{ '%.1f'|format(featured.recipe.avg_rating) }}</span>
+            <span class="pill mint">{{ featured.reason }}</span>
+        </div>
+        <a href="/recipes/{{ featured.recipe.slug }}" class="btn btn-dark">Bekijk recept</a>
+    </article>
+    <aside class="popular-list board">
+        <h3>Andere populaire mocktails</h3>
+        {% for item in others %}
+            <a href="/recipes/{{ item.recipe.slug }}" class="popular-item">
+                <div>
+                    <strong>{{ item.recipe.title }}</strong>
+                    <span>{{ item.recipe.effective_difficulty }} · ⭐ {{ '%.1f'|format(item.recipe.avg_rating) }}</span>
+                </div>
+                <span>→</span>
+            </a>
+        {% else %}
+            <p>Nog geen extra picks voor deze week.</p>
+        {% endfor %}
+    </aside>
+</section>
+{% endif %}
+
+<section class="board search-panel">
+    <form method="get" action="/" class="search-form">
+        <div class="field field-grow">
+            <label for="q">Zoek op naam, ingrediënt of smaak</label>
+            <input id="q" type="text" name="q" value="{{ q }}" placeholder="bijv. munt, citrus, fruitig" />
+        </div>
+
+        <div class="field">
+            <label for="difficulty">Moeilijkheid</label>
+            <select name="difficulty" id="difficulty">
+                <option value="">Alles</option>
+                {% for item in ['Makkelijk', 'Gemiddeld', 'Barista-level'] %}
+                <option value="{{ item }}" {% if selected_difficulty == item %}selected{% endif %}>{{ item }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="field field-flavors">
+            <label>Smaakfilters</label>
+            <div class="checkbox-grid">
+                {% for item in ['zoet', 'zuur', 'bitter', 'fruitig', 'kruidig', 'fris'] %}
+                <label class="chip-check"><input type="checkbox" name="flavor" value="{{ item }}" {% if item in selected_flavors %}checked{% endif %}> {{ item }}</label>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="search-actions">
+            <button class="btn btn-coral" type="submit">Filter</button>
+            <a class="btn btn-outline" href="/">Reset</a>
+        </div>
+    </form>
+</section>
+
+<section class="recipe-grid">
+    {% for recipe in recipes %}
+    <article class="recipe-card board">
+        <div class="card-topline">
+            <span class="pill coral">{{ recipe.effective_difficulty }}</span>
+            <span class="pill amber">⭐ {{ '%.1f'|format(recipe.avg_rating) }}</span>
+        </div>
+        <h3>{{ recipe.title }}</h3>
+        <p>{{ recipe.description }}</p>
+        <p class="meta">Door {{ recipe.author.display_name }} · {{ recipe.review_count }} reviews · {{ recipe.favorite_count }} favorieten</p>
+        <div class="pill-row small">
+            {% for flavor in recipe.recipe_flavors[:3] %}
+            <span class="pill mint">{{ flavor.flavor }}</span>
+            {% endfor %}
+        </div>
+        <a href="/recipes/{{ recipe.slug }}" class="btn btn-dark">Open recept</a>
+    </article>
+    {% else %}
+    <div class="board empty-state">
+        <h3>Geen recepten gevonden</h3>
+        <p>Probeer een andere combinatie van zoekterm, smaak of moeilijkheidsgraad.</p>
+    </div>
+    {% endfor %}
+</section>
+{% endblock %}

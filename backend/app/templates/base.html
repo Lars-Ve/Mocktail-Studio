@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title if title else 'Mocktail Studio' }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+    <div class="bg-blob bg-blob-1"></div>
+    <div class="bg-blob bg-blob-2"></div>
+    <header class="site-header shell">
+        <a href="/" class="brand">
+            <span class="brand-mark">🍹</span>
+            <span>
+                <strong>Mocktail Studio</strong>
+                <small>community-driven alcoholvrije creaties</small>
+            </span>
+        </a>
+        <nav class="main-nav">
+            <a href="/">Home</a>
+            <a href="/recipes/new">Recept indienen</a>
+            <a href="/profile">Mijn profiel</a>
+            <a href="/shake" class="btn btn-amber">Shake to Surprise</a>
+        </nav>
+    </header>
+
+    <main class="shell">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

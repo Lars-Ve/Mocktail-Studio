@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="board profile-card">
+    <p class="eyebrow">Mijn profiel</p>
+    <h1>{{ user.display_name }}</h1>
+    <p>@{{ user.username }}</p>
+</section>
+
+<section class="section-grid">
+    <div class="board">
+        <h2>Badges</h2>
+        <div class="badge-grid">
+            {% for row in badges %}
+            <div class="badge-item">
+                <span>🏅</span>
+                <div>
+                    <strong>{{ row.badge.name }}</strong>
+                    <p>{{ row.badge.description }}</p>
+                </div>
+            </div>
+            {% else %}
+            <p>Nog geen badges verdiend — publiceer een recept of schrijf reviews.</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="board">
+        <h2>Favorieten</h2>
+        {% for item in favorites %}
+        <a href="/recipes/{{ item.recipe.slug }}" class="popular-item">
+            <div>
+                <strong>{{ item.recipe.title }}</strong>
+                <span>{{ item.recipe.effective_difficulty }} · ⭐ {{ '%.1f'|format(item.recipe.avg_rating) }}</span>
+            </div>
+            <span>→</span>
+        </a>
+        {% else %}
+        <p>Je favorietenlijst is nog leeg.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
