@@ -1,0 +1,38 @@
+Systeemrol: Je bent een Senior Full-Stack Developer en Software Architect. 
+Doel: Ontwerp de architectuur en schrijf de code voor de eerste versie (V1) van een nieuwe webapplicatie genaamd "Mocktail Studio". Dit is een community-gedreven platform voor alcoholvrije drankjes. 
+Instructies: Hieronder vind je de functionele en visuele vereisten. Ik vertel je wat het platform moet kunnen; aan jou de taak om te bepalen hoe we dit technisch het beste kunnen bouwen. Denk na over datamodellen, schaalbaarheid en de juiste component-structuur voordat je code genereert. Denk voordat je code begint te schrijven na over een mappenstructuur, en bedenk wat elk bestand erin moet doen. Bedenk ook in welke volgorde je alles gaat doen. Output dan de mappenstructuur. Dan mag je beginnen met het programmeren. De backend moet je in Python met FastAPI maken, en de frontend doe je met HTML+CSS. Schrijf alle code in “code blocks”, met daarvoor de naam van het bestand waarin het moet komen.
+
+Featurelijst en technische vereisten (V1)
+1. Recepten indienen en beheren
+Gebruikers moeten een recept kunnen samenstellen op basis van een vaste, vooraf gedefinieerde ingrediëntenlijst. (Taak voor de AI: Ontwerp een relationeel of document-gebaseerd datamodel waarbij de gebruikers zelf hun ingrediënten uit die lijst selecteren. Maak ook al een eerste versie voor de inhoud van die lijst).
+Het formulier moet velden bevatten voor exacte hoeveelheden en de specifieke bereidingswijze/volgorde.
+De indiener moet een smaakprofiel (bijv. zoet, zuur, fruitig, …) aan het recept kunnen toewijzen.
+2. Beoordelen & interactie
+Gebruikers moeten recepten van anderen kunnen beoordelen met een sterrenscore en een geschreven review.
+Gebruikers moeten kunnen "stemmen" op het smaakprofiel van een recept om de accuraatheid te bepalen. (Taak voor de AI: Bedenk een logica om deze smaak-stemmen te aggregeren en dynamisch weer te geven).
+3. Zoeken & Filteren
+Er moet een zoekbalk komen om te zoeken op naam, ingrediënt of smaak.
+Implementeer een "Wat heb ik in huis"-filter op basis van de ingrediënten.
+Implementeer filters voor specifieke smaken: zoet, zuur, bitter, fruitig, kruidig en fris. (Taak voor de AI: Zorg voor performante database-queries of indexering om deze filters snel te laten werken).
+Implementeer ook een filtering op moeilijkheidsgraad. Toon bij elk recept een label (Makkelijk, Gemiddeld, of Barista-level), waarop je ook kan filteren. (Taak voor de AI: bedenk een systeem zodat de gebruiker zelf de moeilijkheidsgraad kan instellen, maar als er anders gestemd wordt, wordt het aangepast).
+4. Dynamische Weergaves
+Mocktail van de week: De homepage toont wekelijks één uitgelicht recept, gebaseerd op populariteit en beoordelingen. (Taak voor de AI: Ontwerp het algoritme of de cronjob-logica die bepaalt welk recept wint).
+Andere populaire mocktails Onder de Mocktail van de week, op de homepage, moeten ook andere populaire recepten staan. Toon niet altijd de super populaire mocktails, maar ook eens nieuwe, zodat die ook een kans krijgen.
+Shake to Surprise: Implementeer ook een knop die je naar een random recept brengt. De écht super slechte recepten niet, dat meet je a.d.h. van de reviews). DIt dient voor mensen met keuzestress.
+5. Gebruikersprofielen & gamification
+Ondersteun een favorietenlijst waar gebruikers recepten kunnen opslaan voor later.
+Implementeer een badge-systeem voor actieve gebruikers, zoals beloningen voor een eerste recept, 10 beoordelingen, of het winnen van “Recept van de week.” (Taak voor de AI: Bedenk een event-driven structuur om deze prestaties te meten en toe te kennen).
+Genereer voor elk recept een unieke, deelbare link voor social media.
+6. Huisstijl & UI/UX implementatie
+Vertaal de gewenste "hippe alcoholvrije bar" sfeer naar de front-end.
+Gebruik het vastgestelde kleurenpalet: Koraal/perzik (#FF6B6B), Amber/goud (#FFB347), Mintgroen (#A8E6CF) en Off-white (#FAFAF7).
+Probeer door deze kleuren, en door de andere lay-out een toffe zomeravond vibe te creëren.
+Pas Poppins of Nunito toe voor koppen, en een goed leesbare sans-serif voor bodytekst.
+Zorg voor visuele elementen zoals illustratieve ingrediënt-icoontjes en een dashboard met de uitstraling van een kleurrijk keukenblad. (Taak voor de AI: Stel een CSS-framework of styling-oplossing voor die hier het beste bij past).
+7. Buiten Scope (Houd hier wel rekening mee in je architectuur)
+Voedingswaarden (calorieën/macro's).
+AI-receptsuggesties op basis van voorraad.
+Foto's uploaden door gebruikers.
+Printbare PDF-export van recepten.
+Meertaligheid (Frans en Engels).
+
