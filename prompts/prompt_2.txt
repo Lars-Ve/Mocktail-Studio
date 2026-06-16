@@ -1,0 +1,26 @@
+De webapp is al zeer goed. 
+
+Het effect van de header is zeer goed.
+Hier is nog een beetje extra feedback:
+Op de homepage: 
+- Bedenk één of enkele goede kleuren voor de knoppen, en gebruik die consistent.
+- Zorg ervoor dat de Smaakfilters werken. Als je nu bv. op zoet filtert, dan zie je nog altijd alle smaken.
+- Als je de pagina laat herladen na het drukken op "Filter", dan moet je op dezelfde hoogte terugkomen (zodat je niet hoeft te scrollen).
+
+Op de "Recept indienen" pagina:
+- Laat de gebruikers hun ingrediënten kiezen uit een dropdownmenu (met zoekfunctie)
+    Daarna pas moeten ze de hoeveelheid opgeven.
+- De ingrediënt-id hoeft niet getoond te worden aan de gebruiker.
+- Gebruike een tabel header, ipv telkens een placeholder ("bijv. 60 ml" moet "Hoeveelheid" worden (bovenaan de tabel))
+- Gebruik ook hier die consistente kleur(en) van knoppen.
+
+Op de "Mijn profiel" pagina:
+- Maak een pagina waar de gebruikers een account kunnen aanmaken, en een pagina waar ze kunnen inloggen.
+- Als ze niet ingelogd zijn, dan breng je ze naar een simpele, maar overtuigende pagina, waar ze kunnen kiezen "inloggen" of "account aanmaken".
+- Gebruik ook hier de consistente knop-kleur(en)
+
+Op de recipe-detail pagina: 
+- Gebruik ook hier de consistente knop-kleur(en)
+- Zorg dat de "Makkelijk" en "⭐ 5.0 / 5" en "2 reviews" teksten allemaal verticaal gecentreerd staan.
+- Maak de "Deelbaar via" tekst een link als "Delen" of met een icoontje.
+- Haal de "logica" tekst daar weg.
